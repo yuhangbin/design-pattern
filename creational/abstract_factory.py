@@ -2,7 +2,7 @@
 from abc import ABC, abstractmethod
 
 
-class AbstractFactory(ABC):
+class GUIFactory(ABC):
     @abstractmethod
     def create_product_a(self):
         pass
@@ -11,60 +11,60 @@ class AbstractFactory(ABC):
     def create_product_b(self):
         pass
 
-class ConcreteFactory1(AbstractFactory):
+class WindowsFactory(GUIFactory):
     def create_product_a(self):
-        return ConcreteProductA1()
+        return WindowsButton()
 
     def create_product_b(self):
-        return ConcreteProductB1()
+        return WindowsCheckBox()
 
-class ConcreteFactory2(AbstractFactory):
+class MacOSFactory(GUIFactory):
     def create_product_a(self):
-        return ConcreteProductA2()
+        return MacOSButton()
 
     def create_product_b(self):
-        return ConcreteProductB2()
+        return MacOSCheckBox()
 
-class AbstractProductA(ABC):
+class Button(ABC):
     @abstractmethod
-    def useful_function_a(self):
+    def click(self):
         pass
 
-class ConcreteProductA1(AbstractProductA):
-    def useful_function_a(self):
-        return "The result of the product A1"
+class WindowsButton(Button):
+    def click(self):
+        return "Windows button clicked"
 
-class ConcreteProductA2(AbstractProductA):
-    def useful_function_a(self):
-        return "The result of the product A2"
+class MacOSButton(Button):
+    def click(self):
+        return "MacOS button clicked"
 
-class AbstractProductB(ABC):
+class CheckBox(ABC):
     @abstractmethod
-    def useful_function_b(self):
+    def click(self):
         pass
 
-class ConcreteProductB1(AbstractProductB):
-    def useful_function_b(self):
-        return "The result of the product B1"
+class WindowsCheckBox(CheckBox):
+    def click(self):
+        return "Windows checkbox clicked"
 
-class ConcreteProductB2(AbstractProductB):
-    def useful_function_b(self):
-        return "The result of the product B2"
+class MacOSCheckBox(CheckBox):
+    def click(self):
+        return "MacOS checkbox clicked"
 
-def client_code(factory: AbstractFactory):
+def client_code(factory: GUIFactory):
     product_a = factory.create_product_a()
     product_b = factory.create_product_b()
-    print(product_a.useful_function_a())
-    print(product_b.useful_function_b())
+    print(product_a.click())
+    print(product_b.click())
 
 
 if __name__ == "__main__":
     print("Client: Testing client code with the first factory type:")
-    factory1 = ConcreteFactory1()
+    factory1 = WindowsFactory()
     client_code(factory1)
     print("\n")
     print("Client: Testing the same client code with the second factory type:")
-    factory2 = ConcreteFactory2()
+    factory2 = MacOSFactory()
     client_code(factory2)
     
     
