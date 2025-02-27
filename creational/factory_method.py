@@ -18,7 +18,7 @@ class Ship(Transport):
         return "Delivering by ship"
 # create a logistic interface with a method to create a transport
 
-class Logistic:
+class Logistic(ABC):
     @abstractmethod
     def create_transport(self):
         pass
